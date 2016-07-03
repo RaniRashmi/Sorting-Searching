@@ -1,0 +1,141 @@
+Program 6:Given an m*n matrix in which each row and each column is sorted in ascending order write a method to find an element.
+
+
+Example:
+
+      Input: Matrix-Ascending (Increasing)  order (row and column)
+
+
+ 
+
+      Matrix=
+
+
+15
+	
+
+20
+	
+
+70
+	
+
+85
+
+20
+	
+
+35
+	
+
+80
+	
+
+95
+
+30
+	
+
+55
+	
+
+95
+	
+
+105
+
+40
+	
+
+80
+	
+
+100
+	
+
+120
+
+
+Output: let assume we want to find 55.
+
+
+Idea:
+
+    There are three methods to  solve this problem:
+        Method 1: 
+            Apply the binary search at every row  to find the element 
+            This approach take O(log n) time to search in one row.So there are m number of row then total time taken O(mlogn)
+        Method 2:
+            we will take four observation:
+                in this we will see if the element which we want search is less than the element in first row and last column then increase the row by one, else  decrease the column by on.
+            Note: we will start the search from first row and last column(observe).if we start from first row and first column then it will will see only see elements diagonally.(observe by my friend)
+        Method 3:
+            In third method we will see the element diagonal then apply the binary search on upper or lower row and left and right column.
+            This method will take (log m+log n) time.
+
+
+
+Method 2:
+
+
+Source code:
+
+
+public class Program6 {
+
+ public static boolean findElement(int[][]matrix,int element)
+
+ {
+
+  int row=0;
+
+  int col=matrix[0].length-1;
+
+  while(row<matrix.length && col>=0)
+
+  {
+
+   if(matrix[row][col]==element)
+
+    return true;
+
+   else if(matrix[row][col]>element)
+
+         col--;
+
+   else
+
+      row++;
+
+    }
+
+ return false; 
+
+ }
+
+ public static void main(String[] args)
+
+ {
+
+  int [][]matrix={{15,20,40,85},{20,35,80,95},{30,55,95,105},{40,80,100,120}};
+
+  int element=55;
+
+  boolean flag=findElement(matrix,element);
+
+  if(flag)
+
+   System.out.println("element is found:"+element);
+
+  else 
+
+   System.out.println("element is not found:");
+
+ }
+
+
+}
+
+
+
+for any query please comment......
