@@ -1,0 +1,217 @@
+Program 2: Write a method to sort an array of string so that all the anagram are next to each other.
+
+
+Anagram:A string which is formed by rearranging the element of another string
+
+
+Example:
+
+
+     Anagram of abcd: cdba,bcda, acdb so on.
+
+
+Method 1:
+
+
+Example for the given program:
+
+    In first method we are using Comparator class which contain compareTo method
+    Input array: abcd,cdba,to,ot,dbca
+    output array:output should keep to things:
+                keep all anagrams together
+                Sort them in some order like string of one anagram are before than other in dictionary order.
+                output:abcd,cdba,dbca,to,ot
+
+Note: Comparator  class method sorting the array of string according to us(what order we wish)
+
+
+Idea:
+
+
+    In below code we have created to methods with in Comparator class.
+        sortChars() :used to sort the strings of the  array so that it can be compare 
+        compare ():comparing the strings of the array in order of that all anagram  of a string will come together.
+        we have some confusion in starting that if the function sort the each string to compare the anagram why we are getting anagram as the as we are giving the input.But when we saw the functionality of compareTo :It will return the result in the order in which we are interested.
+        here we are sorting the array with respect to anagram.
+    Time Complexity:O(nlogn)
+    Space Complexity:O(1)
+
+
+Source Code
+
+
+import java.util.Arrays;
+
+import java.util.Comparator;
+
+
+class AnagramComparator implements Comparator<String>
+
+{
+
+ public String sortChars(String s)
+
+ {
+
+  char[] content=s.toCharArray();
+
+  Arrays.sort(content);
+
+  return new String(content);
+
+ }
+
+ 
+
+ public int compare(String s1,String s2)
+
+ {
+
+  return sortChars(s1).compareTo(sortChars(s2));
+
+ }
+
+}
+
+public class Program2 {
+
+ public static void main(String[] args) 
+
+ {
+
+ String []str={"acer","ot", "bca","race", "cba","care","abc","to"};
+
+ Arrays.sort(str,new AnagramComparator());
+
+ for(int i=0;i<str.length;i++)
+
+  System.out.print(str[i]+" ");
+
+ System.out.println();
+
+  
+
+ }
+
+
+}
+
+
+
+Method 2:Using Hash Table
+
+
+    In this method we are using Hash Table
+    Hash Table have the property that each key have single.If it come again then it is anagram
+    Hashtable(key,value)
+        key will be string type
+        value(we will store linkedList corrosponding to key(string))
+     Ouput:
+        Anagram will be come together
+         But different anagram will be store according to property of Hash table.
+    Time Complexity:O(n)
+    Space Complexity:O(n)
+    This method is the modification of bucket sort(if array is already sort no need to compare further)
+
+
+
+Source code:
+
+
+import java.util.Arrays;
+
+import java.util.Hashtable;
+
+import java.util.LinkedList;
+
+public class Program2b 
+
+{
+
+ public static void sort(String[] Array)
+
+ {
+
+ Hashtable<String,LinkedList<String>> hash=new Hashtable<String,LinkedList<String>>();
+
+ //group words by anagram
+
+ 
+
+ for(String s:Array)
+
+ {
+
+  String key=sortChars(s);
+
+  if(!hash.containsKey(key))
+
+  {
+
+   hash.put(key, new LinkedList<String>());
+
+  }
+
+  LinkedList<String>anagrams =hash.get(key);
+
+  anagrams.push(s);
+
+ }
+
+ //covert the hash table into array
+
+ 
+
+ int index=0;
+
+ for(String key:hash.keySet())
+
+ {
+
+  LinkedList<String> list=hash.get(key);
+
+  for(String s:list)
+
+  {
+
+   Array[index]=s;
+
+   index++;
+
+  } 
+
+ }
+
+ }
+
+ public static String sortChars(String s) 
+
+ {
+
+  char[]content=s.toCharArray();
+
+  Arrays.sort(content);
+
+  return new String(content);
+
+ }
+
+ public static void main(String[] args)
+
+ {
+
+  String []str={"abcd","bcad","dacb","cabd","pqrst","stpqr","ot","tsprq","to"};
+
+  sort(str);
+
+  for(int i=0;i<str.length;i++)
+
+   System.out.print(str[i]+" ");
+
+ }
+
+
+}
+
+
+
