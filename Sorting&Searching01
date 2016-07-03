@@ -1,0 +1,153 @@
+Program 1:you are given two sorted array a and b,where a has a large enough buffer at the end
+
+to hold b.write a method to merge b into a in sorted order.
+
+
+Idea:
+
+
+    As we have two sorted array, and a has enough space to keep element of b , compare last element of array a with last element of array b.
+        if last element of array is larger than element of array b than put the element of a in to the last of a
+        put the element of array b at the last of array a till all  elements will not be compared 
+    If all elements are compared and b still have some elements than put them into array a.
+
+
+
+Source code:
+
+
+import java.util.Scanner;
+
+
+public class Program1 {
+
+ public static void merge(int []a,int []b,int n, int m)
+
+ {
+
+  int index_a=n-1;  //index of last element in array a
+
+  int index_b=m-1;
+
+  int indexmerged=n+m-1;// end of merge array
+
+  
+
+  
+
+  //merge a and b array,starting from last of each array
+
+  
+
+  while(index_a>=0 && index_b>=0)
+
+  {
+
+   if(a[index_a] > b[index_b])
+
+   {
+
+    a[indexmerged]=a[index_a];
+
+    indexmerged--;
+
+    index_a--;          
+
+   }
+
+   else
+
+   {
+
+    a[indexmerged]=b[index_b];
+
+      indexmerged--;
+
+      index_b--;
+
+   }
+
+  }
+
+  
+
+  //copy the remaining elements from b into a
+
+  
+
+  while(index_b>=0)
+
+  {
+
+   a[indexmerged]=b[index_b];
+
+   indexmerged--;
+
+   index_b--;
+
+  }  
+
+ }
+
+ public static void main(String[] args)
+
+    {
+
+  Scanner in = new Scanner(System.in);
+
+  
+
+    int n,m,i;
+
+    n=in.nextInt();
+
+    m=in.nextInt();
+
+    
+
+    int[]a=new int[n+m];
+
+    int[]b=new int[m];
+
+    
+
+    for(i=0;i<n;i++)
+
+      a[i]=in.nextInt();
+
+    
+
+    for(i=0;i<m;i++)
+
+   b[i]=in.nextInt();
+
+   
+
+    merge(a, b, n, m);
+
+  
+
+    for(i=0;i<(n+m);i++)
+
+     System.out.print(a[i]+" ");    
+
+ }
+
+}
+
+
+
+
+
+Output:
+
+
+    input the size of array a
+    input the size of array b 
+    input the elements of array a 
+    input the element of array b
+    finally click on enter to get the merge output of a and b
+
+
+
+
