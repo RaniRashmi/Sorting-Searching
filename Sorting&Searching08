@@ -1,0 +1,207 @@
+Program 8:Imagine we are reading in a stream of integers Periodically , we wish to be able to look up the rank off a number x(the number of values less than or equal to x.Implement the data structure and algorithm to support this.
+
+
+Source code:
+
+
+import java.util.ArrayList;
+
+import java.util.Scanner;
+
+
+class Node
+
+{
+
+ int data;
+
+ Node left,right;
+
+ public Node(int value)
+
+ {
+
+  data=value;
+
+ }
+
+ public void Display()
+
+ {
+
+  System.out.println(data+" ");
+
+ }
+
+}
+
+class tree
+
+{
+
+ private Node root;
+
+ public tree()
+
+ {
+
+  root=null;
+
+ }
+
+ public void Display()
+
+ {
+
+  System.out.println("The inorder of the given tree:");
+
+  Inorder(root);
+
+  System.out.println();
+
+ }
+
+ public void Inorder(Node root)
+
+ {
+
+  if(root==null)
+
+  {
+
+   Inorder(root.left);
+
+   root.Display();
+
+   Inorder(root.right);
+
+  }
+
+ }
+
+ public void insert(int value)
+
+ {
+
+   root=insert(root,value);
+
+ }
+
+ public  Node insert(Node root, int value)
+
+ {
+
+  if(root==null)
+
+  {
+
+   Node newNode=new Node(value);
+
+   root=newNode;
+
+   return root;
+
+   
+
+  }
+
+  if(root.data>value)
+
+            root.left=insert(root.left,value);
+
+        else
+
+            root.right=insert(root.right,value);
+
+        return root;
+
+ }
+
+ public int track(int value)
+
+ {
+
+  ArrayList<Integer> countArray=new ArrayList<Integer>();
+
+  boolean flag=track(root,value,countArray);
+
+  
+
+  if(flag)
+
+   return countArray.size();
+
+  else 
+
+   return -1;
+
+ }
+
+ public boolean track(Node root, int value, ArrayList<Integer> countArray) 
+
+ {
+
+  if(root==null)
+
+   return false;
+
+  boolean flag=track(root.left,value,countArray);
+
+  if(flag)
+
+   return flag;
+
+  if(root.data==value)
+
+   return true;
+
+  countArray.add(root.data);
+
+  flag=track(root.right,value,countArray);
+
+  if(flag)
+
+   return flag;
+
+ 
+
+  return false;
+
+ }
+
+}
+
+ 
+
+public  class Program8a {
+
+ public static void main(String[] args)
+
+ {
+
+  tree t=new tree();
+
+  Scanner in =new Scanner(System.in);
+
+  int size=in.nextInt();
+
+  int i, a,item;
+
+  for(i=0;i<size;i++)
+
+   t.insert(in.nextInt());
+
+  item=in.nextInt();
+
+  i=t.track(item);
+
+  System.out.println("the rank of the element is:"+i); 
+
+ }
+
+}
+
+
+
+
+For any query please comment...............
