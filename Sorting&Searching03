@@ -1,0 +1,161 @@
+Program 3:Given a sorted array of n integer that has been rotated an unknown number of times write a code to find an element in the array.(array originally sorted in increasing order).
+
+
+Idea:
+
+
+    If array is originally sorted that means if we rotate array from some point .One part will be sorted.
+
+
+Example:
+
+
+
+        Input an array of size 8
+        3 4 5 6 7 8 1 2  (rotated array)
+        if we will give element 7 as an input then it will return index of 7 i.e. 4
+
+
+    How to do program:
+        we have made three function: 
+            SearchRotationPoint function -To find the rotation point
+            BinarySearch-Simply searching element
+            driver function-Main function
+
+
+    Algorithm:
+        (SearchRotationPoint)-Search the mid of the array and check if mid is greater than mid+1
+            if yes then it is a rotation point
+            else
+                if left is less than mid then search rotation point into right part because left is already sorted.
+                otherwise search rotation point in left part
+        (BinarySearch)- when user will input the element which she want search then
+            simple binary search call
+                if element and mid are same then return mid
+                if element is less than mid than search in the left side
+                otherwise search in right side
+        Finally call from the main function for getting the output.
+        ouput: we will get index of element
+
+
+Source code:
+
+
+import java.util.Scanner;
+
+public class Program3 {
+
+    public static int SearchRotationPoint(int []A, int left,int right)
+
+    {
+
+     if(left>right)
+
+      return -1;
+
+     
+
+     int mid=(left+right)/2;
+
+     if(A[mid]>A[mid+1])
+
+      return mid;
+
+     
+
+     //if left half is sorted search right half
+
+     if(A[left]<=A[mid])
+
+      return SearchRotationPoint(A,mid+1,right);
+
+     
+
+     //search in left part
+
+     else
+
+      return SearchRotationPoint(A,left,mid-1);
+
+    }
+
+    public static int BinarySearch(int []A, int left, int right,int x)
+
+    {
+
+     int mid=left+right/2;
+
+     if(x==A[mid])
+
+      return mid;
+
+     
+
+     if(left>right)
+
+      return -1;
+
+     
+
+     if(x<A[mid])
+
+      return BinarySearch(A,left,mid,x);
+
+     
+
+     else
+
+      return BinarySearch(A,mid+1,right,x);
+
+     
+
+    }
+
+ public static void main(String[] args) 
+
+ {
+
+  Scanner in =new Scanner(System.in);
+
+  int n,i,x,j,index;
+
+  n=in.nextInt();
+
+  int []A=new int[n];
+
+  for(i=0;i<n;i++)
+
+  A[i]=in.nextInt();
+
+  
+
+  x=in.nextInt();
+
+  j=SearchRotationPoint(A,0,n-1);
+
+   
+
+  index=BinarySearch(A,0,j,x);
+
+   
+
+  if(index==-1) 
+
+    index=BinarySearch(A,j+1,n-1,x);
+
+   
+
+  if(index!=-1)
+
+    System.out.println("Element is found at index:"+index);
+
+  else
+
+    System.out.println("Element is not found");   
+
+ }
+
+
+}
+
+
